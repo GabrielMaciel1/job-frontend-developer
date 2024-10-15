@@ -37,7 +37,7 @@ const useArticleItem = (article: any) => {
         localStorage.setItem("article_read_counts", JSON.stringify(articleReadCounts));
 
         if (!readArticles.find((a: any) => a.url === article.url)) {
-            readArticles.push({ url: article.url });
+            
             localStorage.setItem("articles_read", JSON.stringify(readArticles));
         }
 
