@@ -1,5 +1,5 @@
-import React from 'react';
-import './Pagination.css'; 
+import React, { memo } from 'react';
+import './style.css';
 
 interface PaginationProps {
     currentPage: number;
@@ -7,7 +7,7 @@ interface PaginationProps {
     onPageChange: (page: number) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPageChange }) => {
+const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) => {
     const scrollToTop = () => {
         window.scrollTo({
             top: 0,
@@ -29,14 +29,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
                 Anterior
             </button>
 
-            <div
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 10px',
-                }}
-            >
+            <div className="page-numbers">
                 {Array.from({ length: totalPages }, (_, index) => (
                     <button
                         key={index + 1}
@@ -66,4 +59,4 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
     );
 };
 
-export default Pagination;
+export default memo(Pagination);

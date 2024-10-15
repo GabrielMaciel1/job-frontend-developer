@@ -1,14 +1,18 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import '../styles/PageBlock.css';
+import { useSearchContext } from "../context/SearchContext";
 
 const PageBlock = () => {
     const location = useLocation();
-    const { state } = location;
     const navigate = useNavigate();
+    const {setHeaderVariant} = useSearchContext()
+    const { state } = location;
+    
 
     const handleClearReadArticles = () => {
         localStorage.removeItem("articles_read");
         localStorage.removeItem("article_read_counts");
+        setHeaderVariant('default')
         navigate("/");
     };
 

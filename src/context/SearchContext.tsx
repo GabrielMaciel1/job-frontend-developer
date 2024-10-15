@@ -32,7 +32,7 @@ interface SearchContextType {
     currentPage: number;
     setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
     totalPages: number;
-    handleSearch: (query: string) => Promise<void>;
+    handleSearch: (query: string) => void;
 }
 
 const SearchContext = createContext<SearchContextType | undefined>(undefined);
@@ -69,21 +69,22 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({ children }) => {
         localStorage.setItem("headerVariant", variant);
     }, []);
 
-    const handleSearch = async (query: string) => {
+    const handleSearch = useCallback((query: string) => {
         setSearchValue(query);
         
-        if (query.trim() === "") {
+        const trimmedQuery = query.trim();
+        if (trimmedQuery === "") {
             setFilterArticles(articles);
             return;
         }
-
-        const lowerCaseQuery = query.toLowerCase();
-        const filtered = articles.filter(article => 
-            article.title.toLowerCase().includes(lowerCaseQuery) ||
-            (article.author && article.author.toLowerCase().includes(lowerCaseQuery))
+    
+        const lowerCaseQuery = trimmedQuery.toLowerCase();
+        const filtered = articles.filter(({ title, author }) => 
+            title.toLowerCase().includes(lowerCaseQuery) ||
+            (author && author.toLowerCase().includes(lowerCaseQuery))
         );
         setFilterArticles(filtered);
-    };
+    }, [articles, setSearchValue]);
 
     useEffect(() => {
         const setVariantBasedOnPath = () => {

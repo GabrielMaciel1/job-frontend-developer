@@ -1,12 +1,3 @@
-.article-list {
-    display: grid;
-    background-color: #fff;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    
-}
-
 .article-header {
     display: flex;
     gap: 10px;
@@ -21,12 +12,20 @@
     text-transform: uppercase;
     font-size: 24px;
     color: #1E293B;
-   margin-left: 20px;
+    margin-left: 20px;
 }
 
 .article-updated {
     font-weight: 400;
     font-size: 18px;
+}
+
+.no-results-message {
+    text-align: center;
+    font-weight: 400;
+    font-size: 20px;
+    color: #475569;
+    margin-bottom: 100px;
 }
 
 @media (max-width: 768px) {
@@ -40,8 +39,6 @@
     .article-title {
         font-size: 20px;
     }
-
-    
 
     .article-updated {
         font-size: 16px;

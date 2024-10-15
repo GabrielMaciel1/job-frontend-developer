@@ -24,6 +24,13 @@
     background-color: #0056b3;
 }
 
+.pagination .page-numbers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+}
+
 .pagination .page-button {
     background-color: #f8f9fa;
     color: #007bff;

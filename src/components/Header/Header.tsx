@@ -3,39 +3,23 @@ import { IoSearch } from "react-icons/io5";
 import { IoCloseCircle } from "react-icons/io5";
 import { FaArrowLeft } from "react-icons/fa";
 import "./style.css";
-import { useSearchContext } from "../../context/SearchContext";
-import { useNavigate } from "react-router";
+import { memo } from "react";
+import useHeaderLogic from "../../hooks/useHeaderLogic";
 
 const Header = () => {
-    const navigate = useNavigate();
     const {
         searchValue,
-        articles,
-        setSearchValue,
-        setHeaderVariant,
-        getHeaderVariant,
+        handleClearSearch,
+        handleBack,
+        headerVariant,
         handleSearch,
-        setFilterArticles,
-    } = useSearchContext();
-    const headerVariant = getHeaderVariant();
-    const handleClearSearch = () => {
-        setSearchValue("");
-        setFilterArticles(articles);
-    };
-
-    const handleBack = () => {
-        if (localStorage.getItem("selectedArticle")) {
-            localStorage.removeItem("selectedArticle");
-        }
-        setHeaderVariant("default");
-        navigate(`/`);
-    };
+        isArticleDetailOrPageBlock,
+    } = useHeaderLogic();
 
     return (
         <>
             <div className="header-flex">
-                {headerVariant === "articleDetail" ||
-                headerVariant === "pageBlock" ? (
+                {isArticleDetailOrPageBlock ? (
                     <div className="back-button" onClick={handleBack}>
                         <FaArrowLeft />
                         <p>Home</p>
@@ -47,33 +31,18 @@ const Header = () => {
                 <img
                     src={Logo}
                     alt="Logo"
-                    className={
-                        headerVariant === "articleDetail" ||
-                        headerVariant === "pageBlock"
-                            ? "logo-margin"
-                            : ""
-                    }
+                    className={isArticleDetailOrPageBlock ? "logo-margin" : ""}
                 />
                 <div />
             </div>
+
             <div
                 className={`header-container ${
-                    headerVariant === "articleDetail" ||
-                    headerVariant === "pageBlock"
-                        ? "full-width"
-                        : ""
+                    isArticleDetailOrPageBlock ? "full-width" : ""
                 }`}
                 style={{
-                    width:
-                        headerVariant === "articleDetail" ||
-                        headerVariant === "pageBlock"
-                            ? "100%"
-                            : "",
-                    height:
-                        headerVariant === "articleDetail" ||
-                        headerVariant === "pageBlock"
-                            ? "150px"
-                            : "",
+                    width: isArticleDetailOrPageBlock ? "100%" : "",
+                    height: isArticleDetailOrPageBlock ? "150px" : "",
                 }}
             >
                 {headerVariant === "default" && (
@@ -91,21 +60,16 @@ const Header = () => {
 
                 <div
                     className={`search-container ${
-                        headerVariant === "articleDetail" ||
-                        headerVariant === "pageBlock"
-                            ? "article-detail"
-                            : ""
+                        isArticleDetailOrPageBlock ? "article-detail" : ""
                     }`}
                 >
                     <IoSearch size={24} className="search-icon" />
-
                     <input
                         value={searchValue}
                         onChange={(e) => handleSearch(e.target.value)}
                         placeholder="O que deseja encontrar?"
                         className="search-input"
                     />
-
                     {searchValue && (
                         <IoCloseCircle
                             onClick={handleClearSearch}
@@ -119,4 +83,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default memo(Header);

@@ -1,50 +1,79 @@
-# React + TypeScript + Vite
+# `News App - Latest Technology News`
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Uma aplicação frontend que exibe as últimas notícias sobre tecnologia, permitindo aos usuários buscar artigos por título ou autor.
 
-Currently, two official plugins are available:
+Optei por utilizar o [pnpm](https://pnpm.io/) como gerenciador de pacotes devido à sua eficiência na instalação de dependências. O pnpm utiliza um sistema de links simbólicos, o que reduz o uso de espaço em disco e acelera a instalação das bibliotecas.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**A aplicação é responsivo**, adaptando-se a diferentes tamanhos de tela para garantir uma boa experiência em dispositivos móveis e web.
 
-## Expanding the ESLint configuration
+## Objetivos do Projeto
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Listar as últimas 20 notícias publicadas em ordem cronológica.
+- Permitir busca de artigos por título ou autor.
+- Exibir informações como thumbnail, título, descrição, autor, imagem, categoria e fonte.
 
-- Configure the top-level `parserOptions` property like this:
+## Como Rodar o Projeto
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+Para rodar o projeto, você precisa ter o [Node.js](https://nodejs.org/) instalado. Siga os passos abaixo:
+
+1. **Clone o repositório:**
+   ```bash
+   git clone https://github.com/GabrielMaciel1/job-frontend-developer.git
+
+## Instalação e Execução
+**Instale as dependências:**
+ Você pode usar qualquer um dos gerenciadores de pacotes:
+```sh 
+yarn add
+```
+ou
+```sh 
+pnpm install
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+**Inicie o servidor de desenvolvimento**: 
+Após a instalação das dependências, inicie o servidor de desenvolvimento:
+
+```sh 
+pnpm run dev
 ```
+ou
+```sh 
+yarn dev
+```
+**Acesse o aplicativo**: Abra seu navegador e acesse http://localhost:3000 (ou a porta que o Vite especificar no terminal).
+## Estrutura do Projeto
+```sh 
+src/
+│
+├── components/          # Componentes reutilizáveis do aplicativo
+│
+├── context/             # Contexto para gerenciar o estado global da aplicação
+│
+├── hooks/               # Hooks personalizados para lógica de negócio
+│
+├── routes/              # Rotas do aplicativo
+│
+├── styles/              # Arquivos de estilo CSS
+│
+├── utils/               # Funções utilitárias, como formatação de datas
+│
+└── App.tsx              # Componente principal da aplicação
+```
+
+
+
+## Dependências
+- **Axios**: Para fazer requisições HTTP.
+
+- **React**: Biblioteca principal para construção de interfaces.
+- **React-router**: Para gerenciar rotas na aplicação.
+-  **Vite**:  Ferramenta de build e servidor de desenvolvimento.
+
+
+## Observação
+**A filtragem por busca está sendo realizada no frontend, em vez de fazer uma nova requisição à API, devido à limitação de requisições que a API disponibiliza.**
+
+
