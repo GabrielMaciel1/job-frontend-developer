@@ -68,7 +68,7 @@ const ArticleItem = ({ article }: any) => {
                     {logoUrl ? (
                         <img src={logoUrl} alt={`${article.source.name}`} className="article-logo" />
                     ) : <p>{article.source.name}</p>}
-                    <h2 className="article-title">{article.title}</h2>
+                    <h2 className="article-title-item">{article.title}</h2>
                     <p className="article-description">{article.description}</p>
                     <div className="article-footer">
                         {article.author && (

@@ -28,6 +28,7 @@ interface SearchContextType {
     setHeaderVariant: (variant: HeaderVariant) => void;
     articles: Article[];
     filterArticles: Article[];
+    setFilterArticles: React.Dispatch<React.SetStateAction<Article[]>>;
     currentPage: number;
     setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
     totalPages: number;
@@ -107,7 +108,8 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({ children }) => {
         setCurrentPage,
         totalPages,
         handleSearch,
-    }), [searchValue, articles, filterArticles, currentPage, totalPages, loadArticles, getHeaderVariant, setHeaderVariant]);
+        setFilterArticles
+    }), [searchValue, filterArticles, currentPage, totalPages, loadArticles, getHeaderVariant, setHeaderVariant]);
 
     return (
         <SearchContext.Provider value={contextValue}>
