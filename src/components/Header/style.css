@@ -1,6 +1,7 @@
 .header-container {
     text-align: center;
     margin: 0 auto;
+    max-width: 782px;
 }
 
 .header-title {
@@ -22,7 +23,8 @@
 .search-container {
     position: relative;
     width: 80%;
-    max-width: 800px;
+
+    max-height: 80px;
     height: 80px;
     margin: 20px auto;
     background-color: #FFFFFF;

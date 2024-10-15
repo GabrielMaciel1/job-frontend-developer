@@ -1,0 +1,46 @@
+.article-list {
+    display: grid;
+    background-color: #fff;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.article-header {
+    display: flex;
+    gap: 10px;
+    color: black;
+    margin: 100px 100px 0;
+    align-items: center;
+}
+
+.article-title {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 1000;
+    text-transform: uppercase;
+    font-size: 24px;
+    color: #1E293B;
+   
+}
+
+.article-updated {
+    font-weight: 400;
+    font-size: 18px;
+}
+
+@media (max-width: 768px) {
+    .article-header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 20px;
+    }
+
+    .article-title {
+        font-size: 20px;
+    }
+
+    .article-updated {
+        font-size: 16px;
+    }
+}

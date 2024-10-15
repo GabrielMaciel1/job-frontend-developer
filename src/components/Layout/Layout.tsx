@@ -1,10 +1,14 @@
-import './style.css';
-import { Outlet } from 'react-router';
+import Header from "../Header/Header";
+import "./style.css";
+import { Outlet } from "react-router";
 
-const Layout = () => (
-  <div className='container'>
-    <Outlet />
-  </div>
-);
+const Layout = () => {
+    return (
+        <div className="container">
+            <Header />
+            <Outlet />
+        </div>
+    );
+};
 
 export default Layout;

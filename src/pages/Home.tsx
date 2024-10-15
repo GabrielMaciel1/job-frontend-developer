@@ -1,22 +1,12 @@
-import { useState } from "react";
-import { Header } from "../components";
+import { ArticleList } from "../components";
+import { useSearchContext } from "../context/SearchContext";
 
 const Home = () => {
-    const [searchValue, setSearchValue] = useState("");
+    const { articles } = useSearchContext();
 
     return (
         <>
-            <Header searchValue={searchValue} setSearchValue={setSearchValue} />
-            <div
-                style={{
-                    color: "black",
-                    justifyContent: "center",
-                    width: "100%",
-                    height: "100%",
-                }}
-            >
-                home
-            </div>
+            <ArticleList articles={articles} />
         </>
     );
 };
