@@ -8,9 +8,9 @@ import { useNavigate } from "react-router";
 
 const Header = () => {
     const navigate = useNavigate();
-    const { searchValue, setSearchValue, handleSearch, headerVariant, setHeaderVariant } =
+    const { searchValue, setSearchValue, handleSearch, setHeaderVariant, getHeaderVariant } =
         useSearchContext();
-
+    const headerVariant = getHeaderVariant();
     const handleClearSearch = () => {
         setSearchValue("");
     };
@@ -19,33 +19,15 @@ const Header = () => {
         if (localStorage.getItem('selectedArticle')) {
             localStorage.removeItem('selectedArticle');
         }
-        setHeaderVariant('default')
+        setHeaderVariant('default');
         navigate(`/`);
     };
 
     return (
         <>
-            <div
-                style={{
-                    display: "flex",
-                    color: "black",
-                    width: "100%",
-                    justifyContent: "space-between",
-                    height: '50px'
-                }}
-            >
-                {headerVariant === "articleDetail" ? (
-                    <div
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "10px",
-                            fontWeight: "700",
-                            cursor: "pointer",
-                            
-                        }}
-                        onClick={handleBack}
-                    >
+            <div className="header-flex">
+                {headerVariant === "articleDetail" || headerVariant === "pageBlock" ? (
+                    <div className="back-button" onClick={handleBack}>
                         <FaArrowLeft />
                         <p>Home</p>
                     </div>
@@ -53,34 +35,32 @@ const Header = () => {
                     <div />
                 )}
 
-                <img src={Logo} alt="Logo" style={{marginRight:headerVariant === "articleDetail"? '50px': ''}}/>
+                <img 
+                    src={Logo} 
+                    alt="Logo" 
+                    className={headerVariant === "articleDetail" || headerVariant === "pageBlock" ? 'logo-margin' : ''} 
+                />
                 <div />
             </div>
             <div
-                className="header-container"
+                className={`header-container ${headerVariant === "articleDetail" || headerVariant === "pageBlock" ? "full-width" : ""}`}
                 style={{
-                    width: headerVariant === "articleDetail" ? "100%" : "",
-                    height: headerVariant === "articleDetail" ? "150px" : "",
+                    width: headerVariant === "articleDetail" || headerVariant === "pageBlock" ? "100%" : "",
+                    height: headerVariant === "articleDetail" || headerVariant === "pageBlock" ? "150px" : "",
                 }}
             >
                 {headerVariant === "default" && (
                     <>
-                    <h1 className="header-title">
-                        Explore as últimas notícias sobre tecnologia da web
-                    </h1>
-                    <h3 className="header-subtitle">
-                        Selecionamos todas as notícias sobre tecnologia produzidas na web para você. Aproveite, foi tudo feito com dedicação.
-                    </h3>
-                </>
+                        <h1 className="header-title">
+                            Explore as últimas notícias sobre tecnologia da web
+                        </h1>
+                        <h3 className="header-subtitle">
+                            Selecionamos todas as notícias sobre tecnologia produzidas na web para você. Aproveite, foi tudo feito com dedicação.
+                        </h3>
+                    </>
                 )}
 
-                <div
-                    className={`search-container ${
-                        headerVariant === "articleDetail"
-                            ? "article-detail"
-                            : ""
-                    }`}
-                >
+                <div className={`search-container ${headerVariant === "articleDetail" || headerVariant === "pageBlock" ? "article-detail" : ""}`}>
                     <IoSearch size={24} className="search-icon" />
 
                     <input

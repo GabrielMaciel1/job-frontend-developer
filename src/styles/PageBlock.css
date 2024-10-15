@@ -1,0 +1,36 @@
+.page-block {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 98%;
+    height: 74vh;
+    background-color: white;
+    color: black;
+    text-align: center;
+    padding: 20px;
+}
+
+.page-block h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.page-block p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.clear-articles-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.clear-articles-button:hover {
+    background-color: #d32f2f;
+}

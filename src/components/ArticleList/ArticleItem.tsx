@@ -1,24 +1,32 @@
-import { useNavigate } from 'react-router-dom';
-import './ArticleItem.css';
+import { useNavigate } from "react-router-dom";
+import "./ArticleItem.css";
 import author from "../../assets/woman.png";
 import { formatDate } from "../../utils/formatDate";
-import { useSearchContext } from '../../context/SearchContext';
+import { useSearchContext } from "../../context/SearchContext";
 
 const ArticleItem = ({ article }: any) => {
     const navigate = useNavigate();
-    const {setHeaderVariant} =useSearchContext()
+    const { setHeaderVariant } = useSearchContext();
 
     const handleReadMore = () => {
-        if (localStorage.getItem('selectedArticle')) {
-            localStorage.removeItem('selectedArticle');
+        if (localStorage.getItem("selectedArticle")) {
+            localStorage.removeItem("selectedArticle");
         }
+        const readArticles = JSON.parse(localStorage.getItem("readArticles") || "[]");
+        if (readArticles.length >= 10) {
+            setHeaderVariant("pageBlock");
+            navigate("/page-block", { state: "maxArticlesReached" });
+        } else {
+            const articleWithLogo = {
+                ...article,
+                icon: getLogoUrl(article.source.name),
+            };
+            localStorage.setItem("selectedArticle", JSON.stringify(articleWithLogo));
+            setHeaderVariant("articleDetail");
 
-        const articleWithLogo = { ...article, icon: getLogoUrl(article.source.name) };
-        localStorage.setItem('selectedArticle', JSON.stringify(articleWithLogo));
-        setHeaderVariant('articleDetail')
-
-        const slug = `${article.title.replace(/\s+/g, '-').toLowerCase()}-${article.source.id}`;
-        navigate(`/${'category'}/${slug}`);
+            const slug = `${article.title.replace(/\s+/g, "-").toLowerCase()}-${article.source.id}`;
+            navigate(`/${"category"}/${slug}`);
+        }
     };
 
     const getLogoUrl = (sourceName: any) => {
@@ -37,9 +45,7 @@ const ArticleItem = ({ article }: any) => {
                 <div className="article-content">
                     {logoUrl ? (
                         <img src={logoUrl} alt={`${article.source.name}`} className="article-logo" />
-                    ) : (
-                        <p>{article.source.name}</p>
-                    )}
+                    ) : <p>{article.source.name}</p>}
                     <h2 className="article-title">{article.title}</h2>
                     <p className="article-description">{article.description}</p>
                     <div className="article-footer">
