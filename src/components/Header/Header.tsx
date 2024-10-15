@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 
 const Header = () => {
     const navigate = useNavigate();
-    const { searchValue, setSearchValue, handleSearch, setHeaderVariant, getHeaderVariant } =
+    const { searchValue, setSearchValue, setHeaderVariant, getHeaderVariant, handleSearch } =
         useSearchContext();
     const headerVariant = getHeaderVariant();
     const handleClearSearch = () => {

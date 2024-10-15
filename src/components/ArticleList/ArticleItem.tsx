@@ -9,24 +9,46 @@ const ArticleItem = ({ article }: any) => {
     const { setHeaderVariant } = useSearchContext();
 
     const handleReadMore = () => {
-        if (localStorage.getItem("selectedArticle")) {
-            localStorage.removeItem("selectedArticle");
-        }
-        const readArticles = JSON.parse(localStorage.getItem("readArticles") || "[]");
-        if (readArticles.length >= 10) {
+        const readArticles = JSON.parse(localStorage.getItem("articles_read") || "[]");
+        const articleReadCounts = JSON.parse(localStorage.getItem("article_read_counts") || "{}");
+        
+        const totalReadCount = readArticles.length;
+        const articleKey = article.url;
+
+        if (totalReadCount >= 10) {
             setHeaderVariant("pageBlock");
             navigate("/page-block", { state: "maxArticlesReached" });
-        } else {
-            const articleWithLogo = {
-                ...article,
-                icon: getLogoUrl(article.source.name),
-            };
-            localStorage.setItem("selectedArticle", JSON.stringify(articleWithLogo));
-            setHeaderVariant("articleDetail");
-
-            const slug = `${article.title.replace(/\s+/g, "-").toLowerCase()}-${article.source.id}`;
-            navigate(`/${"category"}/${slug}`);
+            return;
         }
+
+        const currentReadCount = articleReadCounts[articleKey] || 0;
+
+        if (currentReadCount >= 2) {
+            setHeaderVariant("pageBlock");
+            navigate("/page-block", { state: "maxArticleRead" });
+            return;
+        }
+
+        const articleWithLogo = {
+            ...article,
+            icon: getLogoUrl(article.source.name),
+        };
+
+        localStorage.setItem("selectedArticle", JSON.stringify(articleWithLogo));
+
+        articleReadCounts[articleKey] = (currentReadCount || 0) + 1;
+
+        localStorage.setItem("article_read_counts", JSON.stringify(articleReadCounts));
+
+        if (!readArticles.find(a => a.url === article.url)) {
+            readArticles.push({ url: article.url });
+            localStorage.setItem("articles_read", JSON.stringify(readArticles));
+        }
+
+        setHeaderVariant("articleDetail");
+
+        const slug = `${article.title.replace(/\s+/g, "-").toLowerCase()}-${article.source.id}`;
+        navigate(`/${"category"}/${slug}`);
     };
 
     const getLogoUrl = (sourceName: any) => {

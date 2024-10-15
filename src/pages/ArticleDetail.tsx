@@ -30,11 +30,11 @@ const ArticleDetail = () => {
     }, []);
 
     const trackReadArticle = (id: string) => {
-        const readArticles = JSON.parse(localStorage.getItem('readArticles') || '[]');
+        const readArticles = JSON.parse(localStorage.getItem('articles_read') || '[]');
 
         if (!readArticles.includes(id)) {
             readArticles.push(id);
-            localStorage.setItem('readArticles', JSON.stringify(readArticles));
+            localStorage.setItem("articles_read", JSON.stringify(readArticles));
 
             
         }

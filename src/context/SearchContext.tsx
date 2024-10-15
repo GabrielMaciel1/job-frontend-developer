@@ -27,9 +27,11 @@ interface SearchContextType {
     getHeaderVariant: () => HeaderVariant;
     setHeaderVariant: (variant: HeaderVariant) => void;
     articles: Article[];
+    filterArticles: Article[];
     currentPage: number;
     setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
     totalPages: number;
+    handleSearch: (query: string) => Promise<void>;
 }
 
 const SearchContext = createContext<SearchContextType | undefined>(undefined);
@@ -42,18 +44,21 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({ children }) => {
     const location = useLocation();
     const [searchValue, setSearchValue] = useState<string>("");
     const [articles, setArticles] = useState<Article[]>([]);
+    const [filterArticles, setFilterArticles] = useState<Article[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(1);
 
     const loadArticles = useCallback(async (page: number) => {
-        const { articles, totalResults }: FetchArticlesResponse = await fetchArticles(page);
+        const { articles }: FetchArticlesResponse = await fetchArticles(page);
         setArticles(articles);
-        setTotalPages(Math.ceil(totalResults / 20));
+
+        setTotalPages(Math.ceil(articles.length / 20));
+        setFilterArticles(articles);
     }, []);
 
     useEffect(() => {
         loadArticles(currentPage);
-    }, [currentPage, loadArticles]);
+    }, []);
 
     const getHeaderVariant = useCallback((): HeaderVariant => {
         return (localStorage.getItem("headerVariant") as HeaderVariant) || "default";
@@ -62,6 +67,22 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({ children }) => {
     const setHeaderVariant = useCallback((variant: HeaderVariant) => {
         localStorage.setItem("headerVariant", variant);
     }, []);
+
+    const handleSearch = async (query: string) => {
+        setSearchValue(query);
+        
+        if (query.trim() === "") {
+            setFilterArticles(articles);
+            return;
+        }
+
+        const lowerCaseQuery = query.toLowerCase();
+        const filtered = articles.filter(article => 
+            article.title.toLowerCase().includes(lowerCaseQuery) ||
+            (article.author && article.author.toLowerCase().includes(lowerCaseQuery))
+        );
+        setFilterArticles(filtered);
+    };
 
     useEffect(() => {
         const setVariantBasedOnPath = () => {
@@ -79,12 +100,14 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({ children }) => {
         setSearchValue,
         loadArticles,
         articles,
+        filterArticles,
         getHeaderVariant,
         setHeaderVariant,
         currentPage,
         setCurrentPage,
         totalPages,
-    }), [searchValue, articles, currentPage, totalPages, loadArticles, getHeaderVariant, setHeaderVariant]);
+        handleSearch,
+    }), [searchValue, articles, filterArticles, currentPage, totalPages, loadArticles, getHeaderVariant, setHeaderVariant]);
 
     return (
         <SearchContext.Provider value={contextValue}>

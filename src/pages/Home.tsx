@@ -2,20 +2,21 @@ import { ArticleList } from "../components";
 import { useSearchContext } from "../context/SearchContext";
 
 const Home = () => {
-    const { articles, currentPage, totalPages, setCurrentPage, loadArticles} = useSearchContext();
+    const { currentPage, totalPages, setCurrentPage, filterArticles , loadArticles} = useSearchContext();
 
     const handlePageChange = (newPage: number) => {
         setCurrentPage(newPage);
-        loadArticles(newPage);
+
     };
 
     return (
         <>
             <ArticleList 
-                articles={articles} 
+                articles={filterArticles} 
                 currentPage={currentPage} 
                 totalPages={totalPages} 
                 onPageChange={handlePageChange} 
+                loadArticles={loadArticles}
             />
         </>
     );
