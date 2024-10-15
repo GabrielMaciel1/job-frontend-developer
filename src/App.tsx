@@ -1,10 +1,9 @@
-// App.tsx
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ArticleDetail, Home, PageBlock } from './pages';
 import { Layout } from './components';
-import { SearchProvider } from './context/SearchContext'; // Importe o SearchProvider
+import { SearchProvider } from './context/SearchContext';
 
-const App: React.FC = () => {
+const App = () => {
     return (
         <SearchProvider>
             <BrowserRouter>

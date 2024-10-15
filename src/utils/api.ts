@@ -17,18 +17,11 @@ interface FetchArticlesResponse {
     articles: Article[];
 }
 
-const API_KEY = 'fc94b51db23446498e63c90083e3e752';
+const API_KEY = '3ba9e2d6744c4de39873d37ef96c7ffa';
 const BASE_URL = 'https://newsapi.org/v2';
 
-const filterArticles = (articles: Article[], desiredCount: number): Article[] => {
-    const filteredArticles = articles.filter(article => article.title !== "[Removed]");
-    
-    if (filteredArticles.length < desiredCount) {
-        const additionalArticles = articles.filter(article => article.title !== "[Removed]").slice(0, desiredCount - filteredArticles.length);
-        return [...filteredArticles, ...additionalArticles];
-    }
-    
-    return filteredArticles;
+const filterArticles = (articles: Article[]): Article[] => {
+    return articles.filter(article => article.title !== "[Removed]");
 };
 
 export const fetchArticles = async (page: number = 1): Promise<FetchArticlesResponse> => {
@@ -37,12 +30,13 @@ export const fetchArticles = async (page: number = 1): Promise<FetchArticlesResp
             params: {
                 country: 'us',
                 pageSize: 20,
+                category: ['technology', "science"],
                 page,
                 apiKey: API_KEY,
             },
         });
 
-        const filteredArticles = filterArticles(response.data.articles, 20);
+        const filteredArticles = filterArticles(response.data.articles);
         return {
             ...response.data,
             articles: filteredArticles,
@@ -62,7 +56,7 @@ export const searchArticles = async (query: string): Promise<FetchArticlesRespon
             },
         });
 
-        const filteredArticles = filterArticles(response.data.articles, response.data.totalResults);
+        const filteredArticles = filterArticles(response.data.articles);
         return {
             ...response.data,
             articles: filteredArticles,
@@ -72,7 +66,7 @@ export const searchArticles = async (query: string): Promise<FetchArticlesRespon
     }
 };
 
-export const fetchArticleById = async (id) => {
+export const fetchArticleById = async (id: any) => {
     try {
         const response = await axios.get(`${BASE_URL}/everything`, {
             params: {

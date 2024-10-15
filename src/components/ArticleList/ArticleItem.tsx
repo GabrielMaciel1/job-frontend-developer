@@ -4,14 +4,13 @@ import author from "../../assets/woman.png";
 import { formatDate } from "../../utils/formatDate";
 import { useSearchContext } from '../../context/SearchContext';
 
-const ArticleItem = ({ article }) => {
+const ArticleItem = ({ article }: any) => {
     const navigate = useNavigate();
     const {setHeaderVariant} =useSearchContext()
 
     const handleReadMore = () => {
-        // Verificar se já existe um artigo no localStorage
         if (localStorage.getItem('selectedArticle')) {
-            localStorage.removeItem('selectedArticle'); // Limpar o localStorage se já existir
+            localStorage.removeItem('selectedArticle');
         }
 
         const articleWithLogo = { ...article, icon: getLogoUrl(article.source.name) };
@@ -22,7 +21,7 @@ const ArticleItem = ({ article }) => {
         navigate(`/${'category'}/${slug}`);
     };
 
-    const getLogoUrl = (sourceName) => {
+    const getLogoUrl = (sourceName: any) => {
         const formattedName = sourceName.toLowerCase().replace(/\s+/g, "");
         return `https://logo.clearbit.com/${formattedName}.com`;
     };

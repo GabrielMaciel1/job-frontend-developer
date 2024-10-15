@@ -68,6 +68,13 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
+
+}
+
+.article-author-name {
+    color: '#475569';
+    font-weight: 700;
+    font-size: 16px;
 }
 
 .article-date {
@@ -80,9 +87,19 @@
     .article-image {
         width: 100%;
         height: auto;
+        align-items: center;
+        justify-items: center;
+        justify-content: center;
+        
     }
 
     .article-title {
         font-size: 24px;
+    }
+
+    .article-item-container {
+        display: grid;
+        margin: 0;
+        padding: 0;
     }
 }

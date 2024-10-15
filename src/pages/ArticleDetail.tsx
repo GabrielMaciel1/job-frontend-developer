@@ -16,7 +16,7 @@ const ArticleDetail = () => {
 
         getArticleFromLocalStorage();
     }, []);
-    console.log(selectArticle)
+
     if (!selectArticle) {
         return (
             <div className="loading-container">
