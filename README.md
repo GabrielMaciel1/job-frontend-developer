@@ -62,7 +62,34 @@ src/
 │
 └── App.tsx              # Componente principal da aplicação
 ```
+## Requisitos
 
+### Requisitos Funcionais
+- [x] Deve ser possível listar as notícias mais recentes em ordem cronológica.
+- [x] Deve ser possível listar as notícias com thumbnail, heading, description, author, image, category e source.
+- [ ] Deve ser possível acessar a notícia pelo slug.
+- [x] Deve ser possível o usuário buscar notícias desejadas pelo heading.
+- [x] Deve ser possível o usuário buscar notícia por author.
+- [x] Deve ser possível o usuário ler uma notícia.
+- [x] Deve ser possível salvar um id da notícia lida.
+
+### Regras de Negócio
+- [x] O usuário não pode ler mais que 2 vezes a mesma notícia.
+- [x] O usuário não pode ler uma notícia com o JavaScript desabilitado.
+- [x] O usuário não pode ler uma notícia em modo anônimo.
+- [ ] O usuário não poderá acessar uma página de categoria.
+- [ ] O usuário não poderá acessar uma página de author.
+- [ ] O usuário deverá ser redirecionado para a página principal quando tentar acessar a página de categoria.
+
+### Requisitos Não-funcionais
+- [x] Dynamic Routes: o slug da notícia deve ser: `/[category]/[heading]-[id]`.
+- [x] O id da notícia lida precisa estar persistido em localStorage.
+- [x] O id da notícia persistido em localStorage deve ser retornado quando passado o nome da chave `articles_read`.
+- [x] A lista de notícias deve estar paginada com 20 itens por página.
+- [x] A lista de notícias deve exibir as últimas notícias em ordem cronológica.
+- [ ] O usuário com JavaScript desabilitado no browser deverá ser direcionado para `page-block`.
+- [x] O usuário em aba anônima no browser deverá ser direcionado para `page-block`.
+- [x] O usuário com mais de 10 leituras diferentes deverá ser direcionado para `page-block`.
 
 
 ## Dependências
