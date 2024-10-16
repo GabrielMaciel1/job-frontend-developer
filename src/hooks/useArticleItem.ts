@@ -9,6 +9,7 @@ const useArticleItem = (article: any) => {
     const handleReadMore = useCallback(() => {
         const readArticles = JSON.parse(localStorage.getItem("articles_read") || "[]");
         const articleReadCounts = JSON.parse(localStorage.getItem("article_read_counts") || '{}');
+        const readIndicator = JSON.parse(localStorage.getItem("articles_read_indicator") || "[]");
         const articleKey = article.url;
 
         const totalReadCount = readArticles.length;
@@ -26,12 +27,13 @@ const useArticleItem = (article: any) => {
             return;
         }
 
-        const articleWithLogo = {
-            ...article,
-            icon: getLogoUrl(article.source.name),
-        };
+        if (!readIndicator.includes(articleKey)) {
+            readIndicator.push(articleKey);
+            localStorage.setItem("articles_read_indicator", JSON.stringify(readIndicator));
+        }
 
-        localStorage.setItem("selectedArticle", JSON.stringify(articleWithLogo));
+
+        localStorage.setItem("selectedArticle", JSON.stringify(article));
 
         articleReadCounts[articleKey] = (currentReadCount || 0) + 1;
         localStorage.setItem("article_read_counts", JSON.stringify(articleReadCounts));
@@ -47,23 +49,16 @@ const useArticleItem = (article: any) => {
         navigate(`/${"category"}/${slug}`);
     }, [article, navigate, setHeaderVariant]);
 
-    const getLogoUrl = useCallback((sourceName: any) => {
-        const formattedName = sourceName.toLowerCase().replace(/\s+/g, "");
-        return `https://logo.clearbit.com/${formattedName}.com`;
-    }, []);
-
-    const articleWithLogo = useMemo(() => {
-        return {
-            ...article,
-            icon: getLogoUrl(article.source.name),
-        };
-    }, [article, getLogoUrl]);
-
     const slug = useMemo(() => {
         return `${article.title.replace(/\s+/g, "-").toLowerCase()}-${article.source.id}`;
     }, [article]);
 
-    return { handleReadMore, getLogoUrl, articleWithLogo, slug };
+    const isRead = useMemo(() => {
+        const readIndicator = JSON.parse(localStorage.getItem("articles_read_indicator") || "[]");
+        return readIndicator.includes(article.url);
+    }, [article.url]);
+
+    return { handleReadMore, slug, isRead };
 };
 
 export default useArticleItem;

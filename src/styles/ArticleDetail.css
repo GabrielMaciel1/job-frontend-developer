@@ -1,3 +1,10 @@
+.article-detail-source {
+    color: #008b8b;
+    font-weight: 700;
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
 .loading-container {
     display: flex;
     justify-content: center;
@@ -6,7 +13,7 @@
 }
 
 .loading-text {
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
 }
 
 .article-detail-container {
@@ -35,7 +42,7 @@
 }
 
 .article-detail-title {
-    color: #1E293B;
+    color: #1e293b;
     text-align: center;
     font-size: 2.4rem;
     max-width: 922px;
@@ -85,7 +92,7 @@
 
 .article-detail-read-more {
     display: inline-block;
-    background-color: #007BFF;
+    background-color: #007bff;
     color: white;
     padding: 0.5rem 1rem;
     border-radius: 4px;

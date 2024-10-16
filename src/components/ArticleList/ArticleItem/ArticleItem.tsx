@@ -5,9 +5,10 @@ import useArticleItem from "../../../hooks/useArticleItem";
 import { formatDate } from "../../../utils/formatDate";
 
 const ArticleItem = ({ article }: any) => {
-    const { handleReadMore, getLogoUrl } = useArticleItem(article);
+    const { handleReadMore, isRead } = useArticleItem(article);
     const { title, description, urlToImage, source, publishedAt, author } = article;
-    const logoUrl = getLogoUrl(source.name);
+
+    
 
     return (
         <div className="article-item">
@@ -16,11 +17,10 @@ const ArticleItem = ({ article }: any) => {
                     <img src={urlToImage} alt={title} />
                 </div>
                 <div className="article-content">
-                    {logoUrl ? (
-                        <img src={logoUrl} alt={source.name} className="article-logo" />
-                    ) : (
-                        <p>{source.name}</p>
-                    )}
+                    <div className="article-header-container">
+                        <p className="article-source">{source.name}</p>
+                        {isRead && <p className="article-read-status">Visualizado</p>}
+                    </div>
                     <h2 className="article-title-item">{title}</h2>
                     <p className="article-description">{description}</p>
                     <div className="article-footer">

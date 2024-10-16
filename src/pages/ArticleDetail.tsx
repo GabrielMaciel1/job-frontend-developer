@@ -16,11 +16,7 @@ const ArticleDetail = () => {
 
     return (
         <div className="article-detail-container">
-            <img
-                src={selectedArticle.icon}
-                alt="Ícone do Artigo"
-                className="article-detail-icon"
-            />
+            <p className="article-detail-source">{selectedArticle.source.name}</p>
             <h1 className="article-detail-title">{selectedArticle.title}</h1>
             <div className="article-detail-author-container">
                 <img src={author} className="article-detail-author" alt={`${selectedArticle.author}`} />
