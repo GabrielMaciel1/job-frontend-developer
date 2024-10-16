@@ -2,15 +2,7 @@ import { FiRefreshCw } from "react-icons/fi";
 import "./style.css";
 import ArticleItem from "../ArticleItem/ArticleItem";
 import { memo } from "react";
-
-interface ArticleHeaderProps {
-    noResults: boolean;
-    randomArticle: any;
-    hasSearchValue: boolean;
-    timeSinceUpdate: number;
-    formatTime: (minutes: number) => string;
-    handleUpdateClick: () => void;
-}
+import { ArticleHeaderProps } from "../../../types";
 
 const ArticleHeader = ({
     noResults,

@@ -1,26 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useSearchContext } from "../context/SearchContext";
-
-
-interface Article {
-  url: string;
-  title: string;
-  [key: string]: any;
-}
-
-interface UseArticleListReturn {
-  timeSinceUpdate: number;
-  formatTime: (minutes: number) => string;
-  handleUpdateClick: () => void;
-  hasSearchValue: boolean;
-  noResults: boolean;
-  randomArticle: Article | null;
-  filteredArticles: Article[];
-  articles: Article[];
-  currentPage: number;
-  totalPages: number;
-  setCurrentPage: (page: number) => void;
-}
+import { UseArticleListReturn } from "../types";
 
 export const useArticleList = (): UseArticleListReturn => {
   const {

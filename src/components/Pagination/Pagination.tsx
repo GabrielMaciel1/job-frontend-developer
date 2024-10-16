@@ -1,11 +1,6 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import './style.css';
-
-interface PaginationProps {
-    currentPage: number;
-    totalPages: number;
-    onPageChange: (page: number) => void;
-}
+import { PaginationProps } from '../../types';
 
 const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) => {
     const scrollToTop = () => {

@@ -1,39 +1,7 @@
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
 import { fetchArticles } from '../utils/api';
 import { useLocation } from 'react-router';
-
-type HeaderVariant = "default" | "articleDetail" | "pageBlock";
-
-interface Article {
-    source: { id: string | null; name: string };
-    author: string | null;
-    title: string;
-    description: string | null;
-    url: string;
-    urlToImage: string | null;
-    publishedAt: string;
-    content: string | null;
-}
-
-interface FetchArticlesResponse {
-    articles: Article[];
-    totalResults: number;
-}
-
-interface SearchContextType {
-    searchValue: string;
-    setSearchValue: React.Dispatch<React.SetStateAction<string>>;
-    loadArticles: (page: number) => Promise<void>;
-    getHeaderVariant: () => HeaderVariant;
-    setHeaderVariant: (variant: HeaderVariant) => void;
-    articles: Article[];
-    filterArticles: Article[];
-    setFilterArticles: React.Dispatch<React.SetStateAction<Article[]>>;
-    currentPage: number;
-    setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-    totalPages: number;
-    handleSearch: (query: string) => void;
-}
+import { Article, FetchArticlesResponse, HeaderVariant, SearchContextType } from '../types';
 
 const SearchContext = createContext<SearchContextType | undefined>(undefined);
 
